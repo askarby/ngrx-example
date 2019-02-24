@@ -5,6 +5,8 @@ export enum ItemActionTypes {
   AddItem = '[item] Add Todo-list item',
   RemoveItem = '[item] Remove Todo-list item',
   ItemsSaved = '[item] Todo-list items saved',
+  LoadItems = '[item] Load all Todo-list items',
+  ItemsLoaded = '[item] Todo-list items loaded',
 }
 
 export class AddItem implements Action {
@@ -28,5 +30,17 @@ export class ItemsSaved implements Action {
   }
 }
 
+export class LoadItems implements Action {
+  readonly type = ItemActionTypes.LoadItems;
+}
 
-export type ItemActionUnion = AddItem | RemoveItem | ItemsSaved;
+export class ItemsLoaded implements Action {
+  readonly type = ItemActionTypes.ItemsLoaded;
+
+  constructor(public items: Item[]) {
+
+  }
+}
+
+
+export type ItemActionUnion = AddItem | RemoveItem | ItemsSaved | LoadItems | ItemsLoaded;

@@ -3,7 +3,7 @@ import { Item } from '../item.model';
 import { Observable } from 'rxjs';
 import { State } from '../store';
 import { select, Store } from '@ngrx/store';
-import { AddItem, RemoveItem } from '../store/items/item.actions';
+import { AddItem, LoadItems, RemoveItem } from '../store/items/item.actions';
 import { getItems } from '../store/items/item.selector';
 
 @Component({
@@ -19,6 +19,7 @@ export class MainPageComponent implements OnInit {
 
   ngOnInit() {
     this.items$ = this.store.pipe(select(getItems));
+    this.store.dispatch(new LoadItems());
   }
 
   addItem(title: string) {

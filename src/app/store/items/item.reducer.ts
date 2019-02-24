@@ -19,6 +19,11 @@ export function itemReducer(state = initialState, action: ItemActionUnion): Item
         ...state,
         items: removeItem(state.items, action.item),
       };
+    case ItemActionTypes.ItemsLoaded:
+      return {
+        ...state,
+        items: action.items,
+      };
     default:
       return state;
   }

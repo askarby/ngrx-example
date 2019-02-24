@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Actions, Effect, ofType } from '@ngrx/effects';
-import { ItemActionTypes, ItemsSaved } from './item.actions';
+import { ItemActionTypes, ItemsLoaded, ItemsSaved } from './item.actions';
 import { map, mergeMap, withLatestFrom } from 'rxjs/operators';
 import { select, Store } from '@ngrx/store';
 import { getItems } from './item.selector';
@@ -20,6 +20,13 @@ export class ItemEffects {
     })
   );
 
+  @Effect()
+  loadItems$ = this.actions$.pipe(
+    ofType(ItemActionTypes.LoadItems),
+    mergeMap(() => {
+      return this.storageService.load().pipe(map(loaded => new ItemsLoaded(loaded)));
+    })
+  );
 
   constructor(private actions$: Actions,
               private store: Store<State>,
