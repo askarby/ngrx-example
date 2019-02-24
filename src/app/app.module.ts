@@ -5,6 +5,10 @@ import { AppComponent } from './app.component';
 import { MainPageComponent } from './main-page/main-page.component';
 import { TodoListComponent } from './todo-list/todo-list.component';
 import { STORAGE_TOKEN } from './tokens';
+import { StoreModule } from '@ngrx/store';
+import { reducers } from './store';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { environment } from '../environments/environment';
 
 
 
@@ -15,7 +19,9 @@ import { STORAGE_TOKEN } from './tokens';
     TodoListComponent
   ],
   imports: [
-    BrowserModule
+    BrowserModule,
+    StoreModule.forRoot(reducers),
+    StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: environment.production })
   ],
   providers: [
     {
