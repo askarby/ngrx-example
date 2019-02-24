@@ -3,7 +3,7 @@ import { Item } from '../../item.model';
 
 export enum ItemActionTypes {
   AddItem = '[item] Add Todo-list item',
-  RemoveItem = '[item] Add Todo-list item',
+  RemoveItem = '[item] Remove Todo-list item',
 }
 
 export class AddItem implements Action {
