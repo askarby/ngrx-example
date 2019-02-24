@@ -1,0 +1,9 @@
+<input #name>
+<button (click)="addItem(name.value)">Add item</button>
+<hr>
+<ul>
+  <li *ngFor="let item of items; trackBy: id">
+    <div class="title">{{item.title}}</div>
+    <button class="delete" (click)="removeItem(item)">(x)</button>
+  </li>
+</ul>
