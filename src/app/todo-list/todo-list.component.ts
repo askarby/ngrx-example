@@ -12,38 +12,26 @@ export class TodoListComponent {
   items: Item[];
 
   @Output()
-  itemsChange: EventEmitter<Item[]>;
+  itemAdded: EventEmitter<string>;
+
+  @Output()
+  itemRemoved: EventEmitter<Item>;
 
   constructor() {
     this.items = [];
-    this.itemsChange = new EventEmitter<Item[]>();
+    this.itemAdded = new EventEmitter<string>();
+    this.itemRemoved = new EventEmitter<Item>();
   }
 
   addItem(title: string) {
-    this.items.push({
-      id: this.getNextId(),
-      title
-    });
-    this.itemsChange.emit(this.items);
+    this.itemAdded.emit(title);
   }
 
-  removeItem(id: number) {
-    const index = this.items.findIndex(item => item.id === id);
-    this.items.splice(index, 1);
-    this.itemsChange.emit(this.items);
+  removeItem(item: Item) {
+    this.itemRemoved.emit(item);
   }
 
   id(index: number, item: Item) {
     return item.id;
-  }
-
-  private getNextId() {
-    let largestId = -1;
-    this.items.forEach(item => {
-      if (item.id > largestId) {
-        largestId = item.id;
-      }
-    });
-    return largestId + 1;
   }
 }

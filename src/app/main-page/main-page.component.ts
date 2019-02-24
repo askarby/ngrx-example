@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { StorageService } from '../storage.service';
 import { Item } from '../item.model';
 import { Observable } from 'rxjs';
+import { State } from '../store';
+import { Store } from '@ngrx/store';
+import { AddItem, RemoveItem } from '../store/items/item.actions';
 
 @Component({
   selector: 'app-main-page',
@@ -11,13 +13,18 @@ import { Observable } from 'rxjs';
 export class MainPageComponent implements OnInit {
   items$: Observable<Item[]>;
 
-  constructor(private storage: StorageService) { }
-
-  ngOnInit() {
-    this.items$ = this.storage.load();
+  constructor(private store: Store<State>) {
   }
 
-  saveItems(items: Item[]) {
-    this.storage.save(items);
+  ngOnInit() {
+
+  }
+
+  addItem(title: string) {
+    this.store.dispatch(new AddItem(title));
+  }
+
+  removeItem(item: Item) {
+    this.store.dispatch(new RemoveItem(item));
   }
 }
